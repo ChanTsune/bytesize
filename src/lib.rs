@@ -71,10 +71,10 @@ pub const TIB: u64 = 1_099_511_627_776;
 /// bytes size for 1 pebibyte
 pub const PIB: u64 = 1_125_899_906_842_624;
 
-static UNITS: &str = "KMGTPE";
-static UNITS_SI: &str = "KMGTPE";
-static LN_KB: f64 = 6.931471806; // ln 1024
-static LN_KIB: f64 = 6.907755279; // ln 1000
+const UNITS: &str = "KMGTPE";
+const UNITS_SI: &str = "KMGTPE";
+const LN_KB: f64 = 6.931471806; // ln 1024
+const LN_KIB: f64 = 6.907755279; // ln 1000
 
 pub fn kb<V: Into<u64>>(size: V) -> u64 {
     size.into() * KB
