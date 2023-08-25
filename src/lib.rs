@@ -119,64 +119,69 @@ pub fn pib<V: Into<u64>>(size: V) -> u64 {
 /// Byte size representation
 #[derive(Copy, Clone, PartialEq, PartialOrd, Eq, Ord, Hash, Default)]
 #[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
-pub struct ByteSize(pub u64);
+pub struct ByteSize<U = u64>(pub U);
+
+impl<U> ByteSize<U>
+where
+    U: ~const Mul<u64, Output = U>,
+{
+    #[inline(always)]
+    pub const fn b(size: U) -> Self {
+        Self(size)
+    }
+
+    #[inline(always)]
+    pub const fn kb(size: U) -> Self {
+        Self(size * KB)
+    }
+
+    #[inline(always)]
+    pub const fn kib(size: U) -> Self {
+        Self(size * KIB)
+    }
+
+    #[inline(always)]
+    pub const fn mb(size: U) -> Self {
+        Self(size * MB)
+    }
+
+    #[inline(always)]
+    pub const fn mib(size: U) -> Self {
+        Self(size * MIB)
+    }
+
+    #[inline(always)]
+    pub const fn gb(size: U) -> Self {
+        Self(size * GB)
+    }
+
+    #[inline(always)]
+    pub const fn gib(size: U) -> Self {
+        Self(size * GIB)
+    }
+
+    #[inline(always)]
+    pub const fn tb(size: U) -> Self {
+        Self(size * TB)
+    }
+
+    #[inline(always)]
+    pub const fn tib(size: U) -> Self {
+        Self(size * TIB)
+    }
+
+    #[inline(always)]
+    pub const fn pb(size: U) -> Self {
+        Self(size * PB)
+    }
+
+    #[inline(always)]
+    pub const fn pib(size: U) -> Self {
+        Self(size * PIB)
+    }
+}
 
 impl ByteSize {
-    #[inline(always)]
-    pub const fn b(size: u64) -> ByteSize {
-        ByteSize(size)
-    }
-
-    #[inline(always)]
-    pub const fn kb(size: u64) -> ByteSize {
-        ByteSize(size * KB)
-    }
-
-    #[inline(always)]
-    pub const fn kib(size: u64) -> ByteSize {
-        ByteSize(size * KIB)
-    }
-
-    #[inline(always)]
-    pub const fn mb(size: u64) -> ByteSize {
-        ByteSize(size * MB)
-    }
-
-    #[inline(always)]
-    pub const fn mib(size: u64) -> ByteSize {
-        ByteSize(size * MIB)
-    }
-
-    #[inline(always)]
-    pub const fn gb(size: u64) -> ByteSize {
-        ByteSize(size * GB)
-    }
-
-    #[inline(always)]
-    pub const fn gib(size: u64) -> ByteSize {
-        ByteSize(size * GIB)
-    }
-
-    #[inline(always)]
-    pub const fn tb(size: u64) -> ByteSize {
-        ByteSize(size * TB)
-    }
-
-    #[inline(always)]
-    pub const fn tib(size: u64) -> ByteSize {
-        ByteSize(size * TIB)
-    }
-
-    #[inline(always)]
-    pub const fn pb(size: u64) -> ByteSize {
-        ByteSize(size * PB)
-    }
-
-    #[inline(always)]
-    pub const fn pib(size: u64) -> ByteSize {
-        ByteSize(size * PIB)
-    }
-
     #[inline(always)]
     pub const fn as_u64(&self) -> u64 {
         self.0
