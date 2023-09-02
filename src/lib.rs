@@ -244,22 +244,6 @@ commutative_op!(u32);
 commutative_op!(u16);
 commutative_op!(u8);
 
-impl Add<ByteSize> for ByteSize {
-    type Output = ByteSize;
-
-    #[inline(always)]
-    fn add(self, rhs: ByteSize) -> ByteSize {
-        ByteSize(self.0 + rhs.0)
-    }
-}
-
-impl AddAssign<ByteSize> for ByteSize {
-    #[inline(always)]
-    fn add_assign(&mut self, rhs: ByteSize) {
-        self.0 += rhs.0
-    }
-}
-
 impl<T> Add<T> for ByteSize
     where T: Into<u64> {
     type Output = ByteSize;
@@ -291,6 +275,12 @@ impl<T> MulAssign<T> for ByteSize
     #[inline(always)]
     fn mul_assign(&mut self, rhs: T) {
         self.0 *= rhs.into() as u64;
+    }
+}
+
+impl From<ByteSize> for u64 {
+    fn from(value: ByteSize) -> Self {
+        value.0
     }
 }
 
