@@ -249,7 +249,7 @@ impl<T> Add<T> for ByteSize
     type Output = ByteSize;
     #[inline(always)]
     fn add(self, rhs: T) -> ByteSize {
-        ByteSize(self.0 + (rhs.into() as u64))
+        ByteSize(self.0 + rhs.into())
     }
 }
 
@@ -257,7 +257,7 @@ impl<T> AddAssign<T> for ByteSize
     where T: Into<u64> {
     #[inline(always)]
     fn add_assign(&mut self, rhs: T) {
-        self.0 += rhs.into() as u64;
+        self.0 += rhs.into();
     }
 }
 
@@ -266,7 +266,7 @@ impl<T> Mul<T> for ByteSize
     type Output = ByteSize;
     #[inline(always)]
     fn mul(self, rhs: T) -> ByteSize {
-        ByteSize(self.0 * (rhs.into() as u64))
+        ByteSize(self.0 * rhs.into())
     }
 }
 
@@ -274,7 +274,7 @@ impl<T> MulAssign<T> for ByteSize
     where T: Into<u64> {
     #[inline(always)]
     fn mul_assign(&mut self, rhs: T) {
-        self.0 *= rhs.into() as u64;
+        self.0 *= rhs.into();
     }
 }
 
