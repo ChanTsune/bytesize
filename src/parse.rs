@@ -160,21 +160,30 @@ impl std::str::FromStr for Unit {
     type Err = String;
 
     fn from_str(unit: &str) -> Result<Self, Self::Err> {
-        match unit.to_lowercase().as_str() {
-            "b" => Ok(Self::Byte),
-            // power of tens
-            "k" | "kb" => Ok(Self::KiloByte),
-            "m" | "mb" => Ok(Self::MegaByte),
-            "g" | "gb" => Ok(Self::GigaByte),
-            "t" | "tb" => Ok(Self::TeraByte),
-            "p" | "pb" => Ok(Self::PetaByte),
-            // power of twos
-            "ki" | "kib" => Ok(Self::KibiByte),
-            "mi" | "mib" => Ok(Self::MebiByte),
-            "gi" | "gib" => Ok(Self::GibiByte),
-            "ti" | "tib" => Ok(Self::TebiByte),
-            "pi" | "pib" => Ok(Self::PebiByte),
-            _ => Err(format!("couldn't parse unit of {:?}", unit)),
+        if unit.eq_ignore_ascii_case("b") {
+            Ok(Self::Byte)
+        } else if unit.eq_ignore_ascii_case("k") || unit.eq_ignore_ascii_case("kb") {
+            Ok(Self::KiloByte)
+        } else if unit.eq_ignore_ascii_case("m") || unit.eq_ignore_ascii_case("mb") {
+            Ok(Self::MegaByte)
+        } else if unit.eq_ignore_ascii_case("g") || unit.eq_ignore_ascii_case("gb") {
+            Ok(Self::GigaByte)
+        } else if unit.eq_ignore_ascii_case("t") || unit.eq_ignore_ascii_case("tb") {
+            Ok(Self::TeraByte)
+        } else if unit.eq_ignore_ascii_case("p") || unit.eq_ignore_ascii_case("pb") {
+            Ok(Self::PetaByte)
+        } else if unit.eq_ignore_ascii_case("ki") || unit.eq_ignore_ascii_case("kib") {
+            Ok(Self::KibiByte)
+        } else if unit.eq_ignore_ascii_case("mi") || unit.eq_ignore_ascii_case("mib") {
+            Ok(Self::MebiByte)
+        } else if unit.eq_ignore_ascii_case("gi") || unit.eq_ignore_ascii_case("gib") {
+            Ok(Self::GibiByte)
+        } else if unit.eq_ignore_ascii_case("ti") || unit.eq_ignore_ascii_case("tib") {
+            Ok(Self::TebiByte)
+        } else if unit.eq_ignore_ascii_case("pi") || unit.eq_ignore_ascii_case("pib") {
+            Ok(Self::PebiByte)
+        } else {
+            Err(format!("couldn't parse unit of {:?}", unit))
         }
     }
 }
